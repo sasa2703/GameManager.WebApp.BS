@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameManager.WebApp.BS.Contracts\GameManager.WebApp.BS.Contracts.csproj" />
+    <ProjectReference Include="..\GameManager.WebApp.BS.Entities\GameManager.WebApp.BS.Entities.csproj" />
+    <ProjectReference Include="..\GameManager.WebApp.BS.Shared\GameManager.WebApp.BS.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
