@@ -9,6 +9,7 @@ namespace GameManager.WebApp.BS.Authorization.Interfaces
 {
     public interface IAccessRightsResolver
     {
+
         /// <summary>
         ///  Checks if user can access resources tied to a subscription passed by parameter subscriptionID (CRUD operations).
         ///  If subscriptionID is null or not passed, it is assumed user wants to access all subscriptions.
@@ -20,7 +21,6 @@ namespace GameManager.WebApp.BS.Authorization.Interfaces
         ///  Throws InvalidTokenException in case of invalid token
         /// </exception>
         void CheckPrincipalsRightsOnSubscription(ClaimsPrincipal principal, string? subscriptionID = null);
-
         /// <summary>
         /// Checks if user has rights to access resources tied to a role passed with specific roleId.
         /// </summary>

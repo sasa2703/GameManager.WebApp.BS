@@ -8,6 +8,7 @@ using GameManager.WebApp.BS.Authorization.Interfaces;
 using GameManager.WebApp.BS.Authorization.Implementations;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Any;
+using GameManager.WebApp.BS.Shared.Swagger;
 
 namespace GameManager.WebApp.BS.API.Extensions
 {
@@ -33,33 +34,9 @@ namespace GameManager.WebApp.BS.API.Extensions
             services.AddScoped<IRepositoryManager, RepositoryManager>();
 
         public static void ConfigureServices(this IServiceCollection services) {
-            services.AddScoped<IAuth0Service, Auth0Service>();
-            services.AddScoped<IBillinAddressService, BillingAddressService>();
-            services.AddScoped<IInvoiceService, InvoiceService>();
-            services.AddScoped<ICountryService, CountryService>();
-            services.AddScoped<ILocaleService, LocaleService>();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IResourceGroupService, ResourceGroupService>();
-            services.AddScoped<IProductSubscriptionAffService, ProductSubscriptionAffService>();
-            services.AddScoped<IResourceService, ResourceService>();
-            services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped<ISubscriptionService, SubscriptionService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IProjectsService, ProjectsService>();
-            services.AddScoped<ICertificateService, CertificateService>();
-            services.AddScoped<ICertificateTypeService, CertificateTypeService>();
-            services.AddScoped<IInvoiceTaxRateService, InvoiceTaxRateService>();
-            services.AddScoped<ISettingsService, SettingsService>();
-            services.AddScoped<IApiAccessTokenService, ApiAccessTokenService>();
-            services.AddScoped<IFaqCategoryService, FaqService>();
-            services.AddScoped<IUserDocumentService, UserDocumentService>();
-            services.AddScoped<IMonitoringService, MonitoringService>();
-            services.AddScoped<IDemoService, DemoService>();
-            services.AddScoped<IScriptsService, ScriptsService>();
-            services.AddScoped<IProductConfigurationService, ProductConfigurationService>();
-            services.AddScoped<IBlobStorageBrowserService, BlobStorageBrowserService>();
-            services.AddScoped<IBlobDownloadService, BlobStorageDownloadService>();
-            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IApiAccessTokenService, ApiAccessTokenService>();          
         }
 
         public static void ConfigureAuthorization(this IServiceCollection services)
@@ -83,7 +60,7 @@ namespace GameManager.WebApp.BS.API.Extensions
                 s.SchemaFilter<EnumSchemaFilter>();
                 s.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Fiscal Cloud API",
+                    Title = "Game Manager API",
                     Version = "v1",
                 });
                 s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

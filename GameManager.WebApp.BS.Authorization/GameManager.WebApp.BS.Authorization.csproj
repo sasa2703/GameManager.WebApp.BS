@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GameManager.WebApp.BS.Service.Contracts\GameManager.WebApp.BS.Service.Contracts.csproj" />
+    <ProjectReference Include="..\GameManager.WebApp.BS.Shared\GameManager.WebApp.BS.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

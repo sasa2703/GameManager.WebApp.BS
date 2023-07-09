@@ -1,4 +1,6 @@
 using GameManager.WebApp.BS.API.Extensions;
+using GameManager.WebApp.BS.Shared.Constants;
+using GameManager.WebApp.BS.Shared.Middleware;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -15,9 +17,7 @@ builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServices();
 builder.Services.ConfigureAuthorization();
 builder.Services.ConfigureAppOptions(builder.Configuration);
-builder.Services.ConfigureAuth0Extensions(builder.Configuration);
 builder.Services.ConfigureSqlContext(builder.Configuration);
-builder.Services.AddAzureIdentityServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.ConfigureSwagger();
 
@@ -43,8 +43,6 @@ builder.Services.AddControllers(config =>
 }).AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-    options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
-    options.SerializerSettings.Converters.Add(new NullableDateOnlyJsonConverter());
     options.SerializerSettings.Converters.Add(new StringEnumConverter());
 
 }).AddApplicationPart(typeof(GameManager.WebApp.BS.Presentation.AssemblyReference).Assembly);

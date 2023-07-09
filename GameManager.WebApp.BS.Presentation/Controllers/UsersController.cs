@@ -1,0 +1,143 @@
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using GameManager.WebApp.BS.Service.Contracts;
+using GameManager.WebApp.BS.Shared.RequestFeatures;
+using Microsoft.AspNetCore.Authorization;
+using GameManager.WebApp.BS.Shared.Constants;
+using GameManager.WebApp.BS.Authorization.IdentityTools;
+using GameManager.WebApp.BS.Authorization.Interfaces;
+using GameManager.WebApp.BS.Shared.DataTransferObjects.User;
+using GameManager.WebApp.BS.Shared.DataTransferObjects.Authentfication;
+
+namespace GameManager.WebApp.BS.Presentation.Controllers
+{
+    [Route("api/users")]
+    [ApiController]
+    public class UsersController : ControllerBase
+    {
+        private readonly IUserService _service;
+        private readonly IAccessRightsResolver _auth;
+
+        public UsersController(IUserService service, IAccessRightsResolver auth)
+        {
+            _service = service;
+            _auth = auth;
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetUsers([FromQuery] UserParameters userParameters)
+        {
+            var pagedResult = await _service.GetAllUsersAsync(userParameters, trackChanges: false);
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedResult.metaData));
+
+            return Ok(pagedResult.users);
+        }
+         
+
+
+        [HttpPatch("{username}/change-password")]
+        [Authorize]
+        public async Task<IActionResult> ResetUserPassword(string username, [FromBody] ChangePasswordDto model)
+        {
+            _auth.CheckPrincipalsUsername(User, username);
+            await _service.ChangePassword(username, model);
+
+            return NoContent();
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddUser([FromBody] InvitedUserDto user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+            var createdUser = await _service.AddUserAsync(user);
+            return CreatedAtAction(nameof(GetUserByUsername), new {username = createdUser.Username}, createdUser);
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetUser(int id)
+        {
+            var user = await _service.GetUserAsync(id, trackChanges: false);
+
+            return Ok(user);
+        }
+
+        [HttpGet("{username}")]
+        public async Task<IActionResult> GetUserByUsername(string username)
+        {
+            var user = await _service.GetUserByUsernameAsync(username, trackChanges: false);
+
+            return Ok(user);
+        }
+
+
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<IActionResult> GetLoggedInUserData()
+        {
+            var user = await _service.GetUserByUsernameAsync(ClaimsParser.ParseClaim(User, TokenClaims.Username), trackChanges: false);
+
+            return Ok(user);
+        }
+
+        [HttpDelete("{username}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteUser(string username)
+        {
+            await _auth.CheckPrincipalsRightsOnDelete(User, username);
+            await _service.DeleteUser(username);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id:int}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserForUpdateDto user)
+        {
+            if (user is null)
+            {
+                return BadRequest("UserForUpdateDto object is null");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState); 
+            }
+
+           UserDto userDto =  await _service.UpdateUserAsync(id, user, trackChanges: true);
+
+            return Ok(userDto);
+        }
+
+        [HttpPatch("{id:int}")]
+        public async Task<IActionResult> DisableUser(int id, [FromBody] JsonPatchDocument<UserForUpdateDto> patchDoc)
+        {
+            if (patchDoc is null)
+            {
+                return BadRequest("patchDoc object sent from client is null.");
+            }
+
+            var result = await _service.GetUserForPatchAsync(id, trackChanges: true);
+
+            patchDoc.ApplyTo(result.userToPatch, ModelState);
+
+            TryValidateModel(result.userToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
+            await _service.SaveChangesForPatchAsync(result.userToPatch, result.userEntity);
+
+            return NoContent();
+        }
+    }
+}

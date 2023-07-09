@@ -34,7 +34,34 @@ namespace GameManager.WebApp.BS.Authorization.Implementations
                 throw new PrincipalSelfDeleteException(usernameToDelete);
             }
 
-            CheckPrincipalsRightsOnSubscription(principal, user.SubscriptionId);
+            CheckPrincipalsRightsOnSubscription(principal, usernameToDelete);
+
+        }
+
+        public void CheckPrincipalsRightsOnSubscription(ClaimsPrincipal principal, string subscriptionID)
+        {
+            string categoryID = ClaimsParser.ParseClaim(principal, TokenClaims.UserCategory);
+            int categoryIDNumber = 0;
+            if (!int.TryParse(categoryID, out categoryIDNumber))
+            {
+                throw new TokenInvalidException($"Claim categoryID is not a valid integer.");
+            }
+
+            if (categoryIDNumber == UserCategory.Internal)
+            {
+                return;
+            }
+
+            if (categoryIDNumber == UserCategory.Partner)
+            {
+                throw new NotImplementedException();
+            }
+
+            string principalsSubscriptionID = ClaimsParser.ParseClaim(principal, TokenClaims.SubscriptionId);
+            if (principalsSubscriptionID != subscriptionID)
+            {
+                throw new InsufficientSubscriptionException(principalsSubscriptionID, subscriptionID);
+            }
         }
 
         public async Task CheckPrincipalsRightsOnRole(ClaimsPrincipal principal, int roleId)
@@ -48,32 +75,7 @@ namespace GameManager.WebApp.BS.Authorization.Implementations
             }
         }
 
-
-        public void CheckPrincipalsRightsOnSubscription(ClaimsPrincipal principal, string subscriptionID)
-        {
-            string categoryID = ClaimsParser.ParseClaim(principal, TokenClaims.UserCategory);
-            int categoryIDNumber = 0;
-            if (!int.TryParse(categoryID, out categoryIDNumber))
-            {
-                throw new TokenInvalidException($"Claim categoryID is not a valid integer.");
-            }
-
-            if(categoryIDNumber == UserCategory.Internal)
-            {
-                return;
-            }
-
-            if(categoryIDNumber == UserCategory.Partner)
-            {
-                throw new NotImplementedException();
-            }
-
-            string principalsSubscriptionID = ClaimsParser.ParseClaim(principal, TokenClaims.SubscriptionId);
-            if(principalsSubscriptionID != subscriptionID)
-            {
-                throw new InsufficientSubscriptionException(principalsSubscriptionID, subscriptionID);
-            }
-        }
+     
 
         public void CheckPrincipalsUsername(ClaimsPrincipal principal, string username)
         {
