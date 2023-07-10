@@ -3,7 +3,7 @@
     public partial class User
     {
 
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public string Username { get; set; } = null!;
         public string? SubscriptionId { get; set; }
         public int UserCategory { get; set; }

@@ -5,6 +5,7 @@ using GameManager.WebApp.BS.Shared.RequestFeatures;
 using Microsoft.AspNetCore.Authorization;
 using GameManager.WebApp.BS.Authorization.Interfaces;
 using GameManager.WebApp.BS.Shared.DataTransferObjects.Product;
+using GameManager.WebApp.BS.Shared.DataTransferObjects.Game;
 
 namespace GameManager.WebApp.BS.Presentation.Controllers
 {
@@ -58,6 +59,29 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
             return Ok(game);
         }
 
+        [HttpPost]
+        [Authorize(Policy = "InternalUser")]
+        public async Task<IActionResult> CreateGame([FromBody] GameForCreationDto game)
+        {
+            if (game is null)
+            {
+                return BadRequest("GameForCreationDto object is null");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
+
+            var createdGame = await _service.CreateGameAsync(game);
+
+            return CreatedAtRoute("GetGame", new
+            {
+                id = createdGame.GameId
+            }, createdGame);
+        }
+
 
         [HttpDelete("{id:int}")]
         [Authorize(Policy = "InternalUser")]
@@ -73,9 +97,20 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
         [Authorize(Policy = "InternalUser")]
         public async Task<IActionResult> UpdateGame(int gameId, [FromBody] EditGameDto game)
         {
-            GameDto editedGame = await _service.EditGamesAsync(gameId, game);
+
+            if (game is null)
+            {
+                return BadRequest("EditGameDto object is null");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
+            GameDto editedGame = await _service.EditGameAsync(gameId, game);
             return Ok(editedGame);
-        }
+        }     
 
     }
 }

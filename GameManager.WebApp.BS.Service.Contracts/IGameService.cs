@@ -1,4 +1,6 @@
-﻿using GameManager.WebApp.BS.Shared.DataTransferObjects.Product;
+﻿using GameManager.WebApp.BS.Shared.DataTransferObjects.Game;
+using GameManager.WebApp.BS.Shared.DataTransferObjects.GameCollection;
+using GameManager.WebApp.BS.Shared.DataTransferObjects.Product;
 using GameManager.WebApp.BS.Shared.RequestFeatures;
 
 namespace GameManager.WebApp.BS.Service.Contracts
@@ -11,6 +13,7 @@ namespace GameManager.WebApp.BS.Service.Contracts
         Task<GameDto> GetGameAsync(int gameId, bool trackChanges);
         Task<GameDto> GetGameAsync(string gameIndex, bool trackChanges);
         Task<IEnumerable<GameDto>> GetAllGamesBySubscriptionAsync(string subscriptionId,bool trackChanges);
-        Task<GameDto> EditGamesAsync(int gameId, EditGameDto product);
+        Task<GameDto> EditGameAsync(int gameId, EditGameDto product);
+        Task<GameDto> CreateGameAsync(GameForCreationDto game);
     }
 }

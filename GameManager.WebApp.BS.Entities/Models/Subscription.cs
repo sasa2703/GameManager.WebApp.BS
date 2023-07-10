@@ -11,17 +11,11 @@ namespace GameManager.WebApp.BS.Entities.Models
             Users = new HashSet<User>();
         }
 
-        public int ISubscriptionId { get; set; }
-        public string SSubscriptionId { get; set; } = null!;
-        public string SSubscriptionName { get; set; } = null!;
-        public string? SPartnerSubsriptionId { get; set; }
-        public string SProjectCode { get; set; } = null!;
+        public int Id { get; set; }
+        public string SubscriptionName { get; set; } = null!;
+        public string ProjectCode { get; set; } = null!;
         public DateTime? DtCreated { get; set; }
         public DateTime? DtLastUpdate { get; set; }
-        public bool BDeleted { get; set; }
-        public int IStatusId { get; set; }
-        public int? IUserCategoryId { get; set; }
-        public bool IsProduction { get; set; }
 
         public virtual UserCategory? IUserCategory { get; set; }
         public virtual ICollection<ApiAccessToken> ApiAccessTokens { get; set; }      

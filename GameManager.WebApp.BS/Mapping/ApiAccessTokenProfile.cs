@@ -10,7 +10,7 @@ namespace GameManager.WebApp.BS.API.Mapping
         {
 
             CreateMap<ApiAccessToken, ApiAccessTokenDto>()
-               .ForMember(dest => dest.ApiAccessTokenId, opt => opt.MapFrom(src => src.ApiAccessTokenId))
+               .ForMember(dest => dest.ApiAccessTokenId, opt => opt.MapFrom(src => src.Id))
                .ForMember(dest => dest.LoginId, opt => opt.MapFrom(src => src.LoginId))
                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.DtCreated))
                .ForMember(dest => dest.ExpireDate, opt => opt.MapFrom(src => src.DtExpireDate))

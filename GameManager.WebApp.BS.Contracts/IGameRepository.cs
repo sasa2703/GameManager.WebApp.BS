@@ -11,5 +11,6 @@ namespace GameManager.WebApp.BS.Contracts
         Task<Game> GetGameAsync(int gameId, bool trackChanges);
         Task<Game> GetGameAsync(string gameIndex, bool trackChanges);
         Task<IEnumerable<Game>> GetAllGamesBySubscriptionIdAsync(string subscriptionId, bool trackChanges);
+        void CreateGame(Game gameEntity);
     }
 }

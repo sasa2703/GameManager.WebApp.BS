@@ -2,9 +2,12 @@
 using GameManager.WebApp.BS.Contracts;
 using GameManager.WebApp.BS.Entities.Models;
 using GameManager.WebApp.BS.Service.Contracts;
+using GameManager.WebApp.BS.Shared.DataTransferObjects.Game;
+using GameManager.WebApp.BS.Shared.DataTransferObjects.GameCollection;
 using GameManager.WebApp.BS.Shared.DataTransferObjects.Product;
 using GameManager.WebApp.BS.Shared.Exceptions.Game;
 using GameManager.WebApp.BS.Shared.RequestFeatures;
+using Microsoft.AspNetCore.Http;
 
 namespace GameManager.WebApp.BS.Service
 {
@@ -42,6 +45,18 @@ namespace GameManager.WebApp.BS.Service
             return productDto;
         }
 
+        public async Task<GameDto> CreateGameAsync(GameForCreationDto gameForCreation)
+        {
+            var gameEntity = _mapper.Map<Game>(gameForCreation);
+
+            _repository.Game.CreateGame(gameEntity);
+            await _repository.SaveAsync();
+
+            var game = _mapper.Map<GameDto>(gameEntity);
+
+            return game;
+        }
+
         public async Task DeleteGameAsync(int gameId)
         {
             await _repository.Game.DeleteGameAsync(gameId);           
@@ -62,7 +77,7 @@ namespace GameManager.WebApp.BS.Service
             return _mapper.Map<List<GameDto>>(await _repository.Game.GetAllAvailableGames(trackChanges));
         }
 
-        public async Task<GameDto> EditGamesAsync(int gameId, EditGameDto game)
+        public async Task<GameDto> EditGameAsync(int gameId, EditGameDto game)
         {
             Game existingGame = await _repository.Game.GetGameAsync(gameId, true);
 

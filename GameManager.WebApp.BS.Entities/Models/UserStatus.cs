@@ -10,7 +10,7 @@ namespace GameManager.WebApp.BS.Entities.Models
             Users = new HashSet<User>();
         }
 
-        public int StatusId { get; set; }
+        public int Id { get; set; }
         public string StatusName { get; set; } = null!;
 
         public virtual ICollection<User> Users { get; set; }

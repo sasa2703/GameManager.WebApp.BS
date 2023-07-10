@@ -9,7 +9,7 @@ namespace FiscalCloud.WebApp.BS.API.Mapping
         public RoleProfile()
         {
             CreateMap<Role, RoleDto>()
-                .ForMember(dest => dest.RoleId, opt => opt.MapFrom(src => src.RoleId))
+                .ForMember(dest => dest.RoleId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.RoleName))
                 .ForMember(dest => dest.LastUpdate, opt => opt.MapFrom(src => src.DtLastUpdate))
                 .ForMember(dest => dest.UserCategoryName, opt => opt.MapFrom(src => src.UserCategory.UserCategoryName))

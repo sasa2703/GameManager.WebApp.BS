@@ -47,7 +47,7 @@ namespace GameManager.WebApp.BS.Repository
         public async Task AddUserAsync(User user) => Create(user);
 
         public async Task<User> GetUserAsync(int userId, bool trackChanges) =>
-            await FindByCondition(u => u.UserId.Equals(userId) && u.Deleted == false, trackChanges)
+            await FindByCondition(u => u.Id.Equals(userId) && u.Deleted == false, trackChanges)
             .Include(u => u.Status)
             .Include(u => u.Role)
             .Include(u => u.UserCategoryNavigation)
@@ -63,7 +63,7 @@ namespace GameManager.WebApp.BS.Repository
             .SingleOrDefaultAsync();
 
         public async Task<User> GetUserEnableDisableAsync(int userId, bool trackChanges) =>
-            await FindByCondition(u => u.UserId.Equals(userId), trackChanges)
+            await FindByCondition(u => u.Id.Equals(userId), trackChanges)
             .SingleOrDefaultAsync();
 
         public async Task DeleteUserAsync(string username)

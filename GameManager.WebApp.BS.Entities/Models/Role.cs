@@ -10,7 +10,7 @@ namespace GameManager.WebApp.BS.Entities.Models
             Users = new HashSet<User>();
         }
 
-        public int RoleId { get; set; }
+        public int Id { get; set; }
         public int UserCategoryId { get; set; }
         public string RoleName { get; set; } = null!;
         public string? Description { get; set; }

@@ -7,6 +7,8 @@
         IRoleRepository Role { get; }
         IGameRepository Game { get; }
         IApiAccessTokenRepository ApiAccessTokenRepository { get; }
+
+        IGameCollectionRepository GameCollection { get; }
         Task SaveAsync();
     }
 }

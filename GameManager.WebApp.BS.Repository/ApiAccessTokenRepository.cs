@@ -22,7 +22,7 @@ namespace GameManager.WebApp.BS.Repository
                 apiAccessToken = apiAccessToken.Where(x => x.SubscriptionId.Contains(requestParameters.SubscriptionId));
             }
 
-            var apiAccessTokensOrdered = apiAccessToken.OrderBy(x => x.ApiAccessTokenId);
+            var apiAccessTokensOrdered = apiAccessToken.OrderBy(x => x.Id);
 
             return await PagedList<ApiAccessToken>
                 .ToPageListAsync(apiAccessTokensOrdered, requestParameters.PageNumber, requestParameters.PageSize);
@@ -39,7 +39,7 @@ namespace GameManager.WebApp.BS.Repository
                 apiAccessToken = apiAccessToken.Where(x => x.SubscriptionId.Contains(requestParameters.SubscriptionId));
             }
 
-            var apiAccessTokensOrdered = apiAccessToken.OrderBy(x => x.ApiAccessTokenId);
+            var apiAccessTokensOrdered = apiAccessToken.OrderBy(x => x.Id);
 
             return await PagedList<ApiAccessToken>
                 .ToPageListAsync(apiAccessTokensOrdered, requestParameters.PageNumber, requestParameters.PageSize);
@@ -50,7 +50,7 @@ namespace GameManager.WebApp.BS.Repository
         public void DeleteApiAccessToken(ApiAccessToken apiAccessToken) => Delete(apiAccessToken);
 
         public async Task<ApiAccessToken> GetApiAccessTokenByIdAsync(int id, bool trackChanges) =>
-           await FindByCondition(u => u.ApiAccessTokenId == id, trackChanges)
+           await FindByCondition(u => u.Id == id, trackChanges)
                         .Include(s => s.Subscription)
                         .SingleOrDefaultAsync();
     

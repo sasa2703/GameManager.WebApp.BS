@@ -5,7 +5,7 @@ namespace GameManager.WebApp.BS.Entities.Models
 {
     public partial class ApiAccessToken
     {
-        public int ApiAccessTokenId { get; set; }
+        public int Id { get; set; }
         public string SubscriptionId { get; set; } = null!;
         public string SubscriptionName { get; set; } = null!;
         public string LoginId { get; set; } = null!;

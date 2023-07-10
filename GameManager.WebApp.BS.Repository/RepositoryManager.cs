@@ -10,7 +10,8 @@ namespace GameManager.WebApp.BS.Repository
         private readonly Lazy<IGameRepository> _gameRepository;
         private readonly Lazy<IUserStatusRepository> _userStatusRepository;        
         private readonly Lazy<IRoleRepository> _roleRepository;      
-        private readonly Lazy<IApiAccessTokenRepository> _apiAccessTokenRepository;       
+        private readonly Lazy<IApiAccessTokenRepository> _apiAccessTokenRepository;      
+        private readonly Lazy<IGameCollectionRepository> _gameCollectionRepository;
 
         public RepositoryManager(RepositoryContext repositoryContext)
         {
@@ -20,6 +21,7 @@ namespace GameManager.WebApp.BS.Repository
             _userStatusRepository = new Lazy<IUserStatusRepository>(() => new UserStatusRepository(repositoryContext));
             _roleRepository =  new Lazy<IRoleRepository>(() => new RoleRepository(repositoryContext));
             _apiAccessTokenRepository = new Lazy<IApiAccessTokenRepository>(() => new ApiAccessTokenRepository(repositoryContext));
+            _gameCollectionRepository = new Lazy<IGameCollectionRepository>(()=> new GameCollectionRepository(repositoryContext));
         }
 
         public IUserRepository User => _userRepository.Value;
@@ -30,6 +32,8 @@ namespace GameManager.WebApp.BS.Repository
         public IRoleRepository Role => _roleRepository.Value;
            
         public IApiAccessTokenRepository ApiAccessTokenRepository => _apiAccessTokenRepository.Value;
+
+        public IGameCollectionRepository GameCollection => _gameCollectionRepository.Value;
         public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
 
 

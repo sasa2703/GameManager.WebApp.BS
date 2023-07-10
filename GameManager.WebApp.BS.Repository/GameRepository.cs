@@ -52,6 +52,10 @@ namespace GameManager.WebApp.BS.Repository
             }
         }
 
+        public void CreateGame(Game game) => Create(game);
+
+        public void UpdateGame(Game game) => Update(game);
+
 
         public async Task<IEnumerable<Game>> GetAllGamesBySubscriptionIdAsync(string subscriptionId, bool trackChanges)
         {

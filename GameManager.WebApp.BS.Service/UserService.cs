@@ -118,7 +118,7 @@ namespace GameManager.WebApp.BS.Service
             }
 
 
-            var rolesForCategory = (await _repository.Role.GetRolesByCategory(userModel.UserCategory)).ToDictionary(key => key.RoleId, value => value.RoleId);
+            var rolesForCategory = (await _repository.Role.GetRolesByCategory(userModel.UserCategory)).ToDictionary(key => key.Id, value => value.Id);
             if(!rolesForCategory.ContainsKey(user.RoleId))
             {
                 throw new InvalidUserRoleForCategoryException(user.RoleId, userModel.UserCategory);

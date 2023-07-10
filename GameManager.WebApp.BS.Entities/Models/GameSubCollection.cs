@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameManager.WebApp.BS.Entities.Models
 {
-    internal class GameSubCollection
+    public class GameSubCollection
     {
         public int Id { get; set; } 
         public string Name { get; set; }

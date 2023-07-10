@@ -10,12 +10,14 @@ namespace GameManager.WebApp.BS.Entities.Models
     {
         public GameCollection()
         {
-            GameId = new HashSet<int>();
+            Games = new HashSet<Game>();
+            GameSubCollections = new HashSet<GameSubCollection>();
         }
         public int Id { get; set; }
-        public string DispleyName { get; set; }
-        public string DispleyIndex { get; set; }
-        public virtual ICollection<int> GameId { get; set; }
+        public string DisplayName { get; set; }
+        public string DisplayIndex { get; set; }
+        public virtual ICollection<Game> Games { get; set; }
+        public virtual ICollection<GameSubCollection> GameSubCollections { get; set; }
 
     }
 }

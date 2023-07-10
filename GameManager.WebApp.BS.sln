@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameManager.WebApp.BS.Entit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameManager.WebApp.BS.Shared", "GameManager.WebApp.BS.Shared\GameManager.WebApp.BS.Shared.csproj", "{8573B433-C275-4FC8-A67D-DB95012618CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameManager.WebApp.BS.Authorization.Tests", "GameManager.WebApp.BS.Authorization.Tests\GameManager.WebApp.BS.Authorization.Tests.csproj", "{D8E3FD64-604D-4CF7-8E2E-3C5AA651AC91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameManager.WebApp.BS.Authorization.Tests", "GameManager.WebApp.BS.Authorization.Tests\GameManager.WebApp.BS.Authorization.Tests.csproj", "{D8E3FD64-604D-4CF7-8E2E-3C5AA651AC91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameManager.WebApp.BS.Presentation.Tests", "GameManager.WebApp.BS.Presentation.Tests\GameManager.WebApp.BS.Presentation.Tests.csproj", "{BFC989C2-C625-49E6-AD7B-ED236A6F446D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{D8E3FD64-604D-4CF7-8E2E-3C5AA651AC91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8E3FD64-604D-4CF7-8E2E-3C5AA651AC91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8E3FD64-604D-4CF7-8E2E-3C5AA651AC91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFC989C2-C625-49E6-AD7B-ED236A6F446D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFC989C2-C625-49E6-AD7B-ED236A6F446D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFC989C2-C625-49E6-AD7B-ED236A6F446D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFC989C2-C625-49E6-AD7B-ED236A6F446D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

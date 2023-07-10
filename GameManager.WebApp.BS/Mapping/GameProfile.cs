@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GameManager.WebApp.BS.Entities.Models;
+using GameManager.WebApp.BS.Shared.DataTransferObjects.Game;
 using GameManager.WebApp.BS.Shared.DataTransferObjects.Product;
 
 namespace FiscalCloud.WebApp.BS.API.Mapping
@@ -25,6 +26,15 @@ namespace FiscalCloud.WebApp.BS.API.Mapping
                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
                .ForMember(dest => dest.Thumbnail, opt => opt.MapFrom(src => src.Thumbnail))
                .ForMember(dest => dest.Devices, opt => opt.MapFrom(src => src.Devices));
+
+            CreateMap<GameForCreationDto, Game>()
+             .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.DisplayName))
+               .ForMember(dest => dest.DisplayIndex, opt => opt.MapFrom(src => src.DisplayIndex))
+               .ForMember(dest => dest.ReleaseDateOfGame, opt => opt.MapFrom(src => src.ReleaseDateOfGame))
+               .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.CategoryId))
+               .ForMember(dest => dest.Thumbnail, opt => opt.MapFrom(src => src.Thumbnail))
+               .ForMember(dest => dest.Devices, opt => opt.MapFrom(src => src.DeviceIds))
+                .ReverseMap();
 
         }
     }

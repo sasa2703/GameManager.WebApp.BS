@@ -37,8 +37,7 @@ namespace GameManager.WebApp.BS.API.Mapping
                 .ReverseMap();
 
             CreateMap<User, UserDto>()
-                .ForMember(dest => dest.SubscriptionId, opt => opt.MapFrom(src => src.Subscription.SSubscriptionId))
-                .ForMember(dest => dest.SubscriptionName, opt => opt.MapFrom(src => src.Subscription.SSubscriptionName))
+                .ForMember(dest => dest.SubscriptionId, opt => opt.MapFrom(src => src.Subscription.Id))
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role))
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.UserCategoryNavigation))
                 .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.Username))
@@ -50,12 +49,11 @@ namespace GameManager.WebApp.BS.API.Mapping
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.DtCreated))
                 .ForMember(dest => dest.LastUpdate, opt => opt.MapFrom(src => src.DtLastUpdate))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(u => u.Status.StatusName))
-                .ForMember(dest => dest.UserID, opt => opt.MapFrom(u => u.UserId))
-                .ForMember(dest => dest.ProjectCode, opt => opt.MapFrom(src => src.Subscription.SProjectCode))
+                .ForMember(dest => dest.UserID, opt => opt.MapFrom(u => u.Id))
                 .ReverseMap();
 
             CreateMap<UserCategory, UserCategoryDto>()
-                .ForMember(dest => dest.UserCategoryId, opt => opt.MapFrom(src => src.UserCategoryId))
+                .ForMember(dest => dest.UserCategoryId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.UserCategoryName, opt => opt.MapFrom(src => src.UserCategoryName))
                 .ReverseMap();
 

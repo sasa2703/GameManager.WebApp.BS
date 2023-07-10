@@ -14,6 +14,7 @@
         public GameCategory Category { get; set; }
         public byte[] Thumbnail { get; set; }
         public virtual ICollection<Device> Devices { get; set; }
+        public virtual ICollection<GameCollection> GameCollections { get; set; }
 
     }
 }

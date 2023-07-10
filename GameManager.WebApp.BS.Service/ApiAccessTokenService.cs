@@ -147,7 +147,7 @@ namespace GameManager.WebApp.BS.Service
             {
                 string userName = ClaimsParser.ParseClaim(user, TokenClaims.Username);
                 _logger.LogError($"User {userName} with subscriptionId {subscriptionID} try to retrieve token with {apiAccessToken.SubscriptionId} subscriptionId");
-                throw new UserAndTokenSubscriptionIdAreNotEqual(userName, subscriptionID, apiAccessToken.ApiAccessTokenId);
+                throw new UserAndTokenSubscriptionIdAreNotEqual(userName, subscriptionID, apiAccessToken.Id);
             }
 
             var apiAccessTokenDto = _mapper.Map<ApiAccessTokenDto>(apiAccessToken);
