@@ -14,6 +14,7 @@ namespace GameManager.WebApp.BS.Service.Contracts
         Task<GameCollectionDto> CreateGameCollectionAsync(GameCollectionForCreationDto game);
         Task DeleteGameCollectionAsync(int gameCollectionId);
         Task<GameCollectionDto> EditGameCollectionAsync(int gameCollectionId, EditGameCollectionDto game);
-        Task<(IEnumerable<GameCollectionDto> games, MetaData metaData)> GetAllGamesCollectionsAsync(GameParameters gameParameters, bool trackChanges);
+        Task<(IEnumerable<GameCollectionDto> games, MetaData metaData)> GetAllGamesCollectionsAsync(RequestParameters gameParameters, bool trackChanges);
+        Task<GameCollectionDto> GetGameCollectionAsync(int gameCollectionId, bool trackChanges);
     }
 }

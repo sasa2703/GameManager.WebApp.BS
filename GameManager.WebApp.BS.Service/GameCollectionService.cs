@@ -57,13 +57,27 @@ namespace GameManager.WebApp.BS.Service
             return _mapper.Map<GameCollectionDto>(existingGame);
         }
 
-        public async Task<(IEnumerable<GameCollectionDto> games, MetaData metaData)> GetAllGamesCollectionsAsync(GameParameters gameParameters, bool trackChanges)
+        public async Task<(IEnumerable<GameCollectionDto> games, MetaData metaData)> GetAllGamesCollectionsAsync(RequestParameters requestParameters, bool trackChanges)
         {
-            var gamesWithMetaData = await _repository.GameCollection.GetAllGamesCollectionAsync(gameParameters, trackChanges);
+            var gamesWithMetaData = await _repository.GameCollection.GetAllGamesCollectionAsync(requestParameters, trackChanges);
 
             var gamesCollectionDto = _mapper.Map<IEnumerable<GameCollectionDto>>(gamesWithMetaData);
 
             return (gamesCollection: gamesCollectionDto, metaData: gamesWithMetaData.MetaData);
+        }
+
+        public async Task<GameCollectionDto> GetGameCollectionAsync(int gameCollectionId, bool trackChanges)
+        {
+            var gameCollection = await _repository.GameCollection.GetGameCollectionAsync(gameCollectionId, trackChanges);
+
+            if (gameCollection is null)
+            {
+                throw new GameNotFoundException(gameCollectionId);
+            }
+
+            var gameCollectionDto = _mapper.Map<GameCollectionDto>(gameCollection);
+
+            return gameCollectionDto;
         }
     }
 }

@@ -27,6 +27,8 @@ builder.Services.AddAuthorization(options =>
                       policy.RequireClaim(TokenClaims.UserCategory, UserCategory.Internal.ToString()));
     options.AddPolicy("EndUser", policy =>
                       policy.RequireClaim(TokenClaims.UserCategory, UserCategory.EndUser.ToString()));
+    options.AddPolicy("InternalOrEndUser", policy =>
+                      policy.RequireClaim(TokenClaims.UserCategory, UserCategory.Internal.ToString(), UserCategory.EndUser.ToString()));
 });
 
 

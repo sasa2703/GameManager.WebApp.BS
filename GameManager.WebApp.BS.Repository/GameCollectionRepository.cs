@@ -18,7 +18,7 @@ namespace GameManager.WebApp.BS.Repository
         {
 
         }
-        public async Task<PagedList<GameCollection>> GetAllGamesCollectionAsync(GameParameters gameParameters, bool trackChanges)
+        public async Task<PagedList<GameCollection>> GetAllGamesCollectionAsync(RequestParameters gameParameters, bool trackChanges)
         {
             var gamesCollection = FindAll(trackChanges)
                                   .Include(x => x.Games)

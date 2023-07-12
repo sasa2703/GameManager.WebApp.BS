@@ -1,4 +1,5 @@
-﻿using GameManager.WebApp.BS.Shared.DataTransferObjects.GameCategory;
+﻿using GameManager.WebApp.BS.Shared.DataTransferObjects.Device;
+using GameManager.WebApp.BS.Shared.DataTransferObjects.GameCategory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,19 +12,16 @@ namespace GameManager.WebApp.BS.Shared.DataTransferObjects.Game
     public class GameForCreationDto
     {
         [Required(ErrorMessage = "Display name is a required field.")]
-        public bool DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         [Required(ErrorMessage = "Display index is a required field.")]
-        public bool DisplayIndex { get; set; }
+        public string DisplayIndex { get; set; }
 
         public DateTime ReleaseDateOfGame { get; set; }
 
-        [Required(ErrorMessage = "Notification with displayd from utc is a required field.")]
-        public DateTime DisplaydFromUtc { get; set; }
+        public GameCategoryDto Category{ get; set; }
+        public byte[]? Thumbnail { get; set; }
 
-        public int CategoryId { get; set; }
-        public byte[] Thumbnail { get; set; }
-
-        public List<int> DeviceIds { get; set; }
+        public ICollection<DeviceDto> Devices { get; set; }
     }
 }

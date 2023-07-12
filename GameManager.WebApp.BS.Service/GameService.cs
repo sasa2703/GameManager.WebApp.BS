@@ -63,15 +63,6 @@ namespace GameManager.WebApp.BS.Service
         }
 
 
-        public async Task<IEnumerable<GameDto>> GetAllGamesBySubscriptionAsync(string subscriptionId, bool trackChanges)
-        {
-            var products = await _repository.Game.GetAllGamesBySubscriptionIdAsync(subscriptionId,trackChanges);
-
-            var productsDto = _mapper.Map<IEnumerable<GameDto>>(products);
-
-            return productsDto;
-        }
-
         public async Task<List<GameDto>> GetPubliclyAvailableGames(bool trackChanges)
         {
             return _mapper.Map<List<GameDto>>(await _repository.Game.GetAllAvailableGames(trackChanges));
@@ -92,18 +83,18 @@ namespace GameManager.WebApp.BS.Service
             return _mapper.Map<GameDto>(existingGame);
         }
 
-        public async Task<GameDto> GetGameAsync(string productCode, bool trackChanges)
+        public async Task<GameDto> GetGameAsync(string gameIndex, bool trackChanges)
         {
-            var product = await _repository.Game.GetGameAsync(productCode, trackChanges);
+            var game = await _repository.Game.GetGameAsync(gameIndex, trackChanges);
 
-            if (product is null)
+            if (game is null)
             {
-                throw new GameNotFoundException(productCode);
+                throw new GameNotFoundException(gameIndex);
             }
 
-            var productDto = _mapper.Map<GameDto>(product);
+            var gameDto = _mapper.Map<GameDto>(game);
 
-            return productDto;
+            return gameDto;
         }
 
     }

@@ -26,7 +26,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Policy = "InternalUser")]
         public async Task<IActionResult> GetUsers([FromQuery] UserParameters userParameters)
         {
             var pagedResult = await _service.GetAllUsersAsync(userParameters, trackChanges: false);
@@ -39,7 +39,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
 
 
         [HttpPatch("{username}/change-password")]
-        [Authorize]
+        [Authorize(Policy = "InternalOrEndUser")]
         public async Task<IActionResult> ResetUserPassword(string username, [FromBody] ChangePasswordDto model)
         {
             _auth.CheckPrincipalsUsername(User, username);
@@ -50,7 +50,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
 
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "InternalUser")]
         public async Task<IActionResult> AddUser([FromBody] InvitedUserDto user)
         {
             if (!ModelState.IsValid)
@@ -62,6 +62,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Policy = "InternalOrEndUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _service.GetUserAsync(id, trackChanges: false);
@@ -70,6 +71,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
         }
 
         [HttpGet("{username}")]
+        [Authorize(Policy = "InternalOrEndUser")]
         public async Task<IActionResult> GetUserByUsername(string username)
         {
             var user = await _service.GetUserByUsernameAsync(username, trackChanges: false);
@@ -79,7 +81,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
 
 
         [HttpGet("me")]
-        [Authorize]
+        [Authorize(Policy = "InternalOrEndUser")]
         public async Task<IActionResult> GetLoggedInUserData()
         {
             var user = await _service.GetUserByUsernameAsync(ClaimsParser.ParseClaim(User, TokenClaims.Username), trackChanges: false);
@@ -88,7 +90,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
         }
 
         [HttpDelete("{username}")]
-        [Authorize]
+        [Authorize(Policy = "InternalUser")]
         public async Task<IActionResult> DeleteUser(string username)
         {
             await _auth.CheckPrincipalsRightsOnDelete(User, username);
@@ -98,7 +100,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
         }
 
         [HttpPut("{id:int}")]
-        [Authorize]
+        [Authorize(Policy = "InternalOrEndUser")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserForUpdateDto user)
         {
             if (user is null)
@@ -117,6 +119,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
         }
 
         [HttpPatch("{id:int}")]
+        [Authorize(Policy = "InternalUser")]
         public async Task<IActionResult> DisableUser(int id, [FromBody] JsonPatchDocument<UserForUpdateDto> patchDoc)
         {
             if (patchDoc is null)

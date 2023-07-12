@@ -36,6 +36,7 @@ namespace GameManager.WebApp.BS.API.Extensions
         public static void ConfigureServices(this IServiceCollection services) {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameCollectionRepository, GameCollectionRepository>();
             services.AddScoped<IApiAccessTokenService, ApiAccessTokenService>();          
         }
 

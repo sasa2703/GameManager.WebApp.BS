@@ -62,20 +62,7 @@ namespace GameManager.WebApp.BS.Authorization.Implementations
             {
                 throw new InsufficientSubscriptionException(principalsSubscriptionID, subscriptionID);
             }
-        }
-
-        public async Task CheckPrincipalsRightsOnRole(ClaimsPrincipal principal, int roleId)
-        {
-            string username = ClaimsParser.ParseClaim(principal, TokenClaims.Username);
-            UserDto user = await _userService.GetUserByUsernameAsync(username, false);
-
-            if(user.Role.RoleId != roleId)
-            {
-                throw new InsufficientRoleException(roleId.ToString(), user.Role.RoleId.ToString());
-            }
-        }
-
-     
+        }    
 
         public void CheckPrincipalsUsername(ClaimsPrincipal principal, string username)
         {

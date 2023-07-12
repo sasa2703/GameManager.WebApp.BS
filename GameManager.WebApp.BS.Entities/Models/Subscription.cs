@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameManager.WebApp.BS.Entities.Models
 {
@@ -11,6 +12,7 @@ namespace GameManager.WebApp.BS.Entities.Models
             Users = new HashSet<User>();
         }
 
+        [Key]
         public int Id { get; set; }
         public string SubscriptionName { get; set; } = null!;
         public string ProjectCode { get; set; } = null!;

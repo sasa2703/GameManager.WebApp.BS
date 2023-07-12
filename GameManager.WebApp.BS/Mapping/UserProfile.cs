@@ -38,7 +38,6 @@ namespace GameManager.WebApp.BS.API.Mapping
 
             CreateMap<User, UserDto>()
                 .ForMember(dest => dest.SubscriptionId, opt => opt.MapFrom(src => src.Subscription.Id))
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role))
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.UserCategoryNavigation))
                 .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.Username))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))

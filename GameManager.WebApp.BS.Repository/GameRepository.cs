@@ -5,7 +5,7 @@ using GameManager.WebApp.BS.Shared.RequestFeatures;
 
 namespace GameManager.WebApp.BS.Repository
 {
-    internal sealed class GameRepository : RepositoryBase<Game>, IGameRepository
+    public sealed class GameRepository : RepositoryBase<Game>, IGameRepository
     {
         public GameRepository(RepositoryContext repositoryContext)
             : base(repositoryContext)
@@ -15,12 +15,15 @@ namespace GameManager.WebApp.BS.Repository
 
         public async Task<PagedList<Game>> GetAllGamesAsync(GameParameters gameParameters, bool trackChanges)
         {
-            var games = FindAll(trackChanges);
+            IQueryable<Game> games = FindAll(trackChanges)
+                                     .Include(s=>s.GameCollections)
+                                     .Include(s=>s.Devices)
+                                     .Include(s=>s.Category);
            
 
             if (gameParameters.OnlyAvailable.HasValue && gameParameters.OnlyAvailable.Value)
             {
-                games = games.Where(p => p.ReleaseDateOfGame > DateTime.Now);
+                games = games.Where(p => p.ReleaseDateOfGame < DateTime.Now);
             }
 
             games = games.OrderBy(p => p.DisplayIndex);
@@ -56,11 +59,6 @@ namespace GameManager.WebApp.BS.Repository
 
         public void UpdateGame(Game game) => Update(game);
 
-
-        public async Task<IEnumerable<Game>> GetAllGamesBySubscriptionIdAsync(string subscriptionId, bool trackChanges)
-        {
-            return await FindAll(trackChanges).ToListAsync();
-        }
 
         public async Task<List<Game>> GetAllAvailableGames(bool trackChanges)
         {

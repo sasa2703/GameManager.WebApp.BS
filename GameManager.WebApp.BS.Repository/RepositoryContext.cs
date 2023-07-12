@@ -31,7 +31,6 @@ namespace GameManager.WebApp.BS.Repository
         public DbSet<Device> Device { get; set; }
         public DbSet<GameCategory> GameCategory { get; set; }
         public DbSet<GameCollection> GameCollection { get; set; }
-        public DbSet<Role> Role { get; set; }
         public DbSet<Subscription> Subscription { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet <UserCategory> UserCategory { get; set; }

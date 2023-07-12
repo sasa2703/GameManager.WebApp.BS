@@ -26,14 +26,7 @@ namespace GameManager.WebApp.BS.Authorization.Interfaces
         /// </summary>
         /// <param name="principal">Claims principal with a token</param>
         /// <param name="roleId">roleId of user</param>
-        Task CheckPrincipalsRightsOnRole(ClaimsPrincipal principal, int roleId);
-
-        /// <summary>
-        /// Checks if principal's username is the same as username passed by parameter
-        /// </summary>
-        /// <param name="principal">Claims principal with a token</param>
-        /// <param name="username">username to compare principal with</param>
-        /// <returns></returns>
+      
         void CheckPrincipalsUsername(ClaimsPrincipal principal, string username);
 
         /// <summary>

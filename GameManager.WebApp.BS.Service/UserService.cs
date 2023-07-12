@@ -115,14 +115,7 @@ namespace GameManager.WebApp.BS.Service
             if(await _repository.User.GetUserByUsernameAsync(user.Username, false) != null)
             {
                 throw new UserAlreadyExistsException(user.Username);
-            }
-
-
-            var rolesForCategory = (await _repository.Role.GetRolesByCategory(userModel.UserCategory)).ToDictionary(key => key.Id, value => value.Id);
-            if(!rolesForCategory.ContainsKey(user.RoleId))
-            {
-                throw new InvalidUserRoleForCategoryException(user.RoleId, userModel.UserCategory);
-            }
+            }          
 
             userModel.Status = await _repository.UserStatus.GetUserStatusByName(UserStatuses.Created);
 

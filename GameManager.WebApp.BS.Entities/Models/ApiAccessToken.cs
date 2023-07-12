@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameManager.WebApp.BS.Entities.Models
 {
     public partial class ApiAccessToken
     {
+        [Key]
         public int Id { get; set; }
         public string SubscriptionId { get; set; } = null!;
         public string SubscriptionName { get; set; } = null!;

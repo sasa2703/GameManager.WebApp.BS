@@ -1,6 +1,4 @@
-﻿using GameManager.WebApp.BS.Shared.DataTransferObjects.Role;
-
-namespace  GameManager.WebApp.BS.Shared.DataTransferObjects.User
+﻿namespace  GameManager.WebApp.BS.Shared.DataTransferObjects.User
 {
     public class UserDto
     {
@@ -8,7 +6,6 @@ namespace  GameManager.WebApp.BS.Shared.DataTransferObjects.User
         public string AuthZeroUserID { get; set; }
         public string SubscriptionId { get; set; }
         public string SubscriptionName { get; set; }
-        public RoleDto Role { get; set; }
         public UserCategoryDto Category { get; set; }
         public string Username { get; set; }
         public string? Name { get; set; }

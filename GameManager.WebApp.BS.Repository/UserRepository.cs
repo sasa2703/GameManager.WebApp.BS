@@ -18,7 +18,6 @@ namespace GameManager.WebApp.BS.Repository
             var users = FindAll(trackChanges)
                 .Where(u => u.Deleted == false)
                 .Include(u => u.Status)
-                .Include(u => u.Role)
                 .Include(u => u.UserCategoryNavigation)
                 .Include(u => u.Subscription)
                 .OrderBy(u => u.Username);
@@ -33,7 +32,6 @@ namespace GameManager.WebApp.BS.Repository
             var users = FindAll(trackChanges)
                 .Where(u => u.Deleted == false)
                 .Include(u => u.Status)
-                .Include(u => u.Role)
                 .Include(u => u.UserCategoryNavigation)
                 .Include(u => u.Subscription)
                 .Where(x => x.SubscriptionId.StartsWith(userParameters.SubscriptionId))
@@ -49,7 +47,6 @@ namespace GameManager.WebApp.BS.Repository
         public async Task<User> GetUserAsync(int userId, bool trackChanges) =>
             await FindByCondition(u => u.Id.Equals(userId) && u.Deleted == false, trackChanges)
             .Include(u => u.Status)
-            .Include(u => u.Role)
             .Include(u => u.UserCategoryNavigation)
             .Include(u => u.Subscription)
             .SingleOrDefaultAsync();
@@ -57,7 +54,6 @@ namespace GameManager.WebApp.BS.Repository
         public async Task<User> GetUserByUsernameAsync(string username, bool trackChanges) =>
             await FindByCondition(u => u.Username.Equals(username), trackChanges)
             .Include(u => u.Status)
-            .Include(u => u.Role)
             .Include(u => u.UserCategoryNavigation)
             .Include(u => u.Subscription)
             .SingleOrDefaultAsync();

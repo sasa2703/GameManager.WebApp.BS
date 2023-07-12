@@ -23,13 +23,23 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetGamesCollections([FromQuery] GameParameters gameParameters)
+        [Authorize(Policy = "InternalOrEndUser")]
+        public async Task<IActionResult> GetGamesCollections([FromQuery] RequestParameters requestParameters)
         {
-            var pagedResult = await _gamesControllerService.GetAllGamesCollectionsAsync(gameParameters, trackChanges: false);
+            var pagedResult = await _gamesControllerService.GetAllGamesCollectionsAsync(requestParameters, trackChanges: false);
 
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedResult.metaData));
 
             return Ok(pagedResult.games);
+        }
+
+        [HttpGet("{id:int}")]
+        [Authorize(Policy = "InternalOrEndUser")]
+        public async Task<IActionResult> GetGameCollection(int gameCollectionId)
+        {
+            var gameCollection = await _gamesControllerService.GetGameCollectionAsync(gameCollectionId, false);
+
+            return Ok(gameCollection);
         }
 
         [HttpPost]

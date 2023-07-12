@@ -10,7 +10,7 @@ namespace GameManager.WebApp.BS.Contracts
 {
     public interface IGameCollectionRepository
     {
-        Task<PagedList<GameCollection>> GetAllGamesCollectionAsync(GameParameters gameParameters, bool trackChanges);
+        Task<PagedList<GameCollection>> GetAllGamesCollectionAsync(RequestParameters gameParameters, bool trackChanges);
         Task DeleteGameCollectionAsync(int gameCollectionId);
         void CreateGameCollection(GameCollection gameEntity);
         Task<GameCollection> GetGameCollectionAsync(int gameCollectionId, bool v);

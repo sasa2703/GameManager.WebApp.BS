@@ -25,6 +25,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "InternalOrEndUser")]
         public async Task<IActionResult> GetApiAccessTokenPaged([FromQuery] ApiAccessTokenParameters apiAccessTokenRequestParameters)
         {
 
@@ -37,6 +38,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
 
 
         [HttpPost]
+        [Authorize(Policy = "InternalOrEndUser")]
         public async Task<IActionResult> CreateApiAccessToken([FromBody] ApiAccessTokenForCreationDto apiAccessTokenForCreation)
         {
             if (apiAccessTokenForCreation is null)
@@ -59,6 +61,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "InternalUser")]
         public async Task<IActionResult> DeleteApiAccessToken(int id)
         {         
             await _service.DeleteApiAccessTokenAsync(id, trackChanges: false);
@@ -68,6 +71,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
 
 
         [HttpGet("{apiAccessTokenId}", Name = "GetApiAccessToken")]
+        [Authorize(Policy = "InternalOrEndUser")]
         public async Task<IActionResult> GetApiAccessToken(int apiAccessTokenId, [FromQuery] ApiAccessTokenParameters billingAddressParameters)
         {
             var result = await _service.GetApiAccessTokenByIdAsync(apiAccessTokenId, trackChanges: false);

@@ -30,17 +30,9 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
             return Ok(await _service.GetPubliclyAvailableGames(false));
         }
 
-        [HttpGet("{subscriptionId}/games")]
-        public async Task<IActionResult> GetSubscriptionGames(string subscriptionId)
-        {
-            _auth.CheckPrincipalsRightsOnSubscription(User, subscriptionId);
-
-            var subscriptionGames = await _service.GetAllGamesBySubscriptionAsync(subscriptionId, trackChanges: false);
-
-            return Ok(subscriptionGames);
-        }
 
         [HttpGet]
+        [Authorize(Policy = "InternalOrEndUser")]
         public async Task<IActionResult> GetGames([FromQuery] GameParameters gameParameters)
         {
             var pagedResult = await _service.GetAllGamesAsync(gameParameters, trackChanges: false);
@@ -52,6 +44,7 @@ namespace GameManager.WebApp.BS.Presentation.Controllers
 
 
         [HttpGet("{id:int}")]
+        [Authorize(Policy = "InternalOrEndUser")]
         public async Task<IActionResult> GetGame(int gameId)
         {
             var game = await _service.GetGameAsync(gameId, false);

@@ -4,6 +4,7 @@ using GameManager.WebApp.BS.Entities.Models;
 using GameManager.WebApp.BS.Presentation.Controllers;
 using GameManager.WebApp.BS.Service.Contracts;
 using GameManager.WebApp.BS.Shared.DataTransferObjects.Product;
+using GameManager.WebApp.BS.Shared.RequestFeatures;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Reflection.Metadata;

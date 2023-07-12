@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameManager.WebApp.BS.Entities.Models
 {
@@ -7,15 +8,13 @@ namespace GameManager.WebApp.BS.Entities.Models
     {
         public UserCategory()
         {
-            Roles = new HashSet<Role>();
             Subscriptions = new HashSet<Subscription>();
             Users = new HashSet<User>();
         }
-
+        [Key]
         public int Id { get; set; }
         public string UserCategoryName { get; set; } = null!;
 
-        public virtual ICollection<Role> Roles { get; set; }
         public virtual ICollection<Subscription> Subscriptions { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }

@@ -1,7 +1,6 @@
 ﻿using GameManager.WebApp.BS.Authorization.Implementations;
 using GameManager.WebApp.BS.Service.Contracts;
 using GameManager.WebApp.BS.Shared.Constants;
-using GameManager.WebApp.BS.Shared.DataTransferObjects.Role;
 using GameManager.WebApp.BS.Shared.DataTransferObjects.User;
 using GameManager.WebApp.BS.Shared.Exceptions.Auth0;
 using GameManager.WebApp.BS.Shared.Exceptions.Authorization;
@@ -101,65 +100,7 @@ namespace GameManager.WebApp.BS.Authorization.Tests.Implementations
             //Act assert
             Assert.Throws<InvalidPrincipalUsernameException>(() => resolver.CheckPrincipalsUsername(claimsPrincipal, passedUsername));
         }
-
-        [Fact]
-        public async void CheckPrincipalsRightsOnRole__IncompatibleRole__ThrowsUnauthorizedException()
-        {
-            // Arrange
-            string subID = "456";
-            string username = "Aca";
-            UserDto user = new UserDto 
-            { Role =  new RoleDto
-                {
-                    RoleId = 1,
-                    RoleName = "Somerole"
-                }
-            };
-
-            _mockUser.Setup(x => x.GetUserByUsernameAsync(username, false)).Returns(async () => user);
-            AccessRightsResolver resolver = new AccessRightsResolver(_mockUser.Object);
-            var claims = new List<Claim>()
-            {
-                new Claim(TokenClaims.Username, username),
-                new Claim(TokenClaims.UserCategory, UserCategory.Partner.ToString()),
-                new Claim(TokenClaims.SubscriptionId, "456"),
-            };
-            ClaimsIdentity identity = new ClaimsIdentity(claims, "Test");
-            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
-
-            //Act assert
-            await Assert.ThrowsAsync<InsufficientRoleException>(() =>  resolver.CheckPrincipalsRightsOnRole(claimsPrincipal, 2));
-        }
-
-        [Fact]
-        public async void CheckPrincipalsRightsOnRole__CompatibleRole__AssertDoesntThrow()
-        {
-            // Arrange
-            string subID = "456";
-            string username = "Aca";
-            UserDto user = new UserDto
-            {
-                Role = new RoleDto
-                {
-                    RoleId = 2,
-                    RoleName = "Somerole"
-                }
-            };
-
-            _mockUser.Setup(x => x.GetUserByUsernameAsync(username, false)).Returns(async () => user);
-            AccessRightsResolver resolver = new AccessRightsResolver(_mockUser.Object);
-            var claims = new List<Claim>()
-            {
-                new Claim(TokenClaims.Username, username),
-                new Claim(TokenClaims.UserCategory, UserCategory.Partner.ToString()),
-                new Claim(TokenClaims.SubscriptionId, "456"),
-            };
-            ClaimsIdentity identity = new ClaimsIdentity(claims, "Test");
-            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
-
-            //Act assert
-            await resolver.CheckPrincipalsRightsOnRole(claimsPrincipal, 2);
-        }
+     
 
         [Fact]
         public async void CheckPrincipalsRightsOnDelete__SelfDelete__ThrowsPrincipalSelfDeleteException()
@@ -170,11 +111,6 @@ namespace GameManager.WebApp.BS.Authorization.Tests.Implementations
             UserDto user = new UserDto
             {
                 Username = "Aca",
-                Role = new RoleDto
-                {
-                    RoleId = 2,
-                    RoleName = "Somerole"
-                },
                 SubscriptionId = "456"
             };
 
@@ -201,12 +137,7 @@ namespace GameManager.WebApp.BS.Authorization.Tests.Implementations
             string username = "Aca";
             UserDto user = new UserDto
             {
-                Username = "Joca",
-                Role = new RoleDto
-                {
-                    RoleId = 2,
-                    RoleName = "Somerole"
-                },
+                Username = "Joca",               
                 SubscriptionId = "456"
             };
 
